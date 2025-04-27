@@ -48,53 +48,58 @@ export default function LandingPage() {
         </div>
       </header>
       <main className="flex-1">
-        <section className="py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
-          <div className="container px-4 md:px-6">
+        <section
+          className="py-12 md:py-24 lg:py-32 relative"
+          style={{
+            background: "linear-gradient(90deg, #FF5F00 0%, #FF2D00 100%)",
+          }}
+        >
+          <div className="container px-4 md:px-6 relative z-10">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                  <h1 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl lg:text-6xl">
                     Digital Payroll for Unorganized Sector
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="max-w-[600px] text-white/80 md:text-xl">
                     Prevent disputes, ensure compliance, and manage your workforce with ease. Designed for contractors
                     in India.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button size="lg" className="gap-1" asChild>
+                  <Button size="lg" className="gap-1 bg-white text-primary hover:bg-white/90" asChild>
                     <Link href="/login">
                       Start Free Trial <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
                     <Link href="#how-it-works">Learn More</Link>
                   </Button>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-2 text-sm text-white">
+                  <CheckCircle className="h-4 w-4 text-white" />
                   <span>No credit card required</span>
                 </div>
               </div>
               <div className="flex items-center justify-center">
-                <div className="relative h-[350px] w-full md:h-[420px] lg:h-[450px] overflow-hidden rounded-lg border bg-background shadow-xl">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-muted p-6">
-                    <div className="space-y-4 rounded-lg bg-background/90 p-4 backdrop-blur">
+                <div className="relative h-[350px] w-full md:h-[420px] lg:h-[450px] overflow-hidden rounded-lg bg-white/10 backdrop-blur-sm shadow-xl">
+                  <div className="absolute inset-0 p-6">
+                    <div className="space-y-4 rounded-lg bg-white p-4">
                       <div className="text-lg font-bold">Vetankhata Dashboard</div>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="rounded-lg bg-muted p-3">
+                        <div className="rounded-lg bg-gray-50 p-3">
                           <div className="text-sm font-medium">Active Projects</div>
                           <div className="text-2xl font-bold">5</div>
                         </div>
-                        <div className="rounded-lg bg-muted p-3">
+                        <div className="rounded-lg bg-gray-50 p-3">
                           <div className="text-sm font-medium">Total Employees</div>
                           <div className="text-2xl font-bold">48</div>
                         </div>
-                        <div className="rounded-lg bg-muted p-3">
+                        <div className="rounded-lg bg-gray-50 p-3">
                           <div className="text-sm font-medium">Today's Wages</div>
                           <div className="text-2xl font-bold">₹24,000</div>
                         </div>
-                        <div className="rounded-lg bg-muted p-3">
+                        <div className="rounded-lg bg-gray-50 p-3">
                           <div className="text-sm font-medium">Pending Reports</div>
                           <div className="text-2xl font-bold">2</div>
                         </div>
@@ -336,7 +341,13 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="cta" className="py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">
+        <section
+          id="cta"
+          className="py-12 md:py-24 lg:py-32 text-white"
+          style={{
+            background: "linear-gradient(90deg, #FF5F00 0%, #FF2D00 100%)",
+          }}
+        >
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -348,14 +359,10 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button size="lg" variant="secondary" className="gap-1">
+                <Button size="lg" variant="secondary" className="gap-1 bg-white text-primary hover:bg-white/90">
                   Start Free Trial <ArrowRight className="h-4 w-4" />
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
-                >
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                   Contact Sales
                 </Button>
               </div>

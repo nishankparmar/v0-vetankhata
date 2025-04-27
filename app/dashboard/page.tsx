@@ -1,186 +1,244 @@
 "use client"
 
 import Link from "next/link"
-import { BarChart3, Building2, Calendar, IndianRupee, Plus, Users, FileText } from "lucide-react"
+import {
+  BarChart3,
+  Building2,
+  Calendar,
+  ChevronRight,
+  IndianRupee,
+  Plus,
+  Users,
+  FileText,
+  TrendingUp,
+  Clock,
+  AlertCircle,
+} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back, Rajesh Construction!</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button asChild>
-            <Link href="/dashboard/projects/new">
-              <Plus className="mr-2 h-4 w-4" />
-              New Project
+    <div className="space-y-6">
+      {/* Quick Actions */}
+      <div className="flex flex-wrap gap-3">
+        <Button asChild className="bg-primary/10 text-primary hover:bg-primary/20">
+          <Link href="/dashboard/projects/new">
+            <Plus className="mr-2 h-4 w-4" />
+            New Project
+          </Link>
+        </Button>
+        <Button asChild className="bg-primary/10 text-primary hover:bg-primary/20">
+          <Link href="/dashboard/employees/new">
+            <Plus className="mr-2 h-4 w-4" />
+            Add Employee
+          </Link>
+        </Button>
+        <Button asChild className="bg-primary/10 text-primary hover:bg-primary/20">
+          <Link href="/dashboard/wages">
+            <IndianRupee className="mr-2 h-4 w-4" />
+            Record Wages
+          </Link>
+        </Button>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="flex flex-row items-center justify-between pt-6">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Total Projects</p>
+              <h3 className="text-2xl font-bold">5</h3>
+              <p className="text-xs text-muted-foreground">3 active, 2 completed</p>
+            </div>
+            <div className="rounded-full bg-primary/10 p-3">
+              <Building2 className="h-5 w-5 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="flex flex-row items-center justify-between pt-6">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Total Employees</p>
+              <h3 className="text-2xl font-bold">48</h3>
+              <p className="text-xs text-muted-foreground">+5 from last month</p>
+            </div>
+            <div className="rounded-full bg-primary/10 p-3">
+              <Users className="h-5 w-5 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="flex flex-row items-center justify-between pt-6">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Today's Wages</p>
+              <h3 className="text-2xl font-bold">₹24,000</h3>
+              <p className="text-xs text-muted-foreground">+₹2,500 from yesterday</p>
+            </div>
+            <div className="rounded-full bg-primary/10 p-3">
+              <IndianRupee className="h-5 w-5 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="flex flex-row items-center justify-between pt-6">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Monthly Expenses</p>
+              <h3 className="text-2xl font-bold">₹5,20,000</h3>
+              <p className="text-xs text-muted-foreground">+12% from last month</p>
+            </div>
+            <div className="rounded-full bg-primary/10 p-3">
+              <BarChart3 className="h-5 w-5 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Active Projects */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <div>
+            <CardTitle>Active Projects</CardTitle>
+            <CardDescription>Overview of your ongoing projects</CardDescription>
+          </div>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/dashboard/projects">
+              View All
+              <ChevronRight className="ml-1 h-4 w-4" />
             </Link>
           </Button>
-        </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {[
+              { name: "Pune City Mall", progress: 45, employees: 18, daily: "₹9,000" },
+              { name: "Green Valley Apartments", progress: 72, employees: 15, daily: "₹7,500" },
+              { name: "Highway Extension", progress: 25, employees: 15, daily: "₹7,500" },
+            ].map((project) => (
+              <div key={project.name} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="font-medium">{project.name}</div>
+                  <div className="text-sm text-muted-foreground">{project.progress}%</div>
+                </div>
+                <Progress value={project.progress} className="h-2" />
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center">
+                    <Users className="mr-1 h-3 w-3" />
+                    {project.employees} workers
+                  </div>
+                  <div className="flex items-center">
+                    <IndianRupee className="mr-1 h-3 w-3" />
+                    {project.daily}/day
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Activity and Alerts */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+            <CardDescription>Latest updates across your projects</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {[
+                {
+                  icon: Users,
+                  description: "Added 2 new workers to Pune City Mall",
+                  timestamp: "2 hours ago",
+                },
+                {
+                  icon: IndianRupee,
+                  description: "Recorded wages for Highway Extension",
+                  timestamp: "4 hours ago",
+                },
+                {
+                  icon: Calendar,
+                  description: "Generated PF report for April",
+                  timestamp: "Yesterday",
+                },
+                {
+                  icon: Building2,
+                  description: "Created new project: Highway Extension",
+                  timestamp: "2 days ago",
+                },
+              ].map((activity, index) => (
+                <div key={index} className="flex items-start gap-4">
+                  <div className="rounded-full bg-primary/10 p-2">
+                    <activity.icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium leading-none">{activity.description}</p>
+                    <p className="text-xs text-muted-foreground">{activity.timestamp}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Upcoming Tasks</CardTitle>
+            <CardDescription>Tasks that need your attention</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-orange-100 p-2">
+                  <AlertCircle className="h-4 w-4 text-orange-500" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium leading-none">PF submission due</p>
+                  <p className="text-xs text-muted-foreground">Due in 3 days</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary/10 p-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium leading-none">Generate monthly payslips</p>
+                  <p className="text-xs text-muted-foreground">Due in 5 days</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary/10 p-2">
+                  <Clock className="h-4 w-4 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium leading-none">Project milestone: Green Valley</p>
+                  <p className="text-xs text-muted-foreground">Due in 1 week</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary/10 p-2">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium leading-none">Quarterly tax filing</p>
+                  <p className="text-xs text-muted-foreground">Due in 2 weeks</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" className="w-full">
+              View All Tasks
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
-      <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="reports">Reports</TabsTrigger>
-        </TabsList>
-        <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Projects</CardTitle>
-                <Building2 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">5</div>
-                <p className="text-xs text-muted-foreground">3 active, 2 completed</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Employees</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">48</div>
-                <p className="text-xs text-muted-foreground">+5 from last month</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Today's Wages</CardTitle>
-                <IndianRupee className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">₹24,000</div>
-                <p className="text-xs text-muted-foreground">+₹2,500 from yesterday</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Monthly Expenses</CardTitle>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">₹5,20,000</div>
-                <p className="text-xs text-muted-foreground">+12% from last month</p>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Active Projects</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { name: "Pune City Mall", progress: 45, employees: 18, daily: "₹9,000" },
-                    { name: "Green Valley Apartments", progress: 72, employees: 15, daily: "₹7,500" },
-                    { name: "Highway Extension", progress: 25, employees: 15, daily: "₹7,500" },
-                  ].map((project) => (
-                    <div key={project.name} className="flex items-center">
-                      <div className="w-1/3 font-medium">{project.name}</div>
-                      <div className="w-1/3 flex-1">
-                        <div className="flex items-center gap-2">
-                          <Progress value={project.progress} className="h-2" />
-                          <span className="text-sm text-muted-foreground">{project.progress}%</span>
-                        </div>
-                      </div>
-                      <div className="w-1/6 text-right text-sm">{project.employees} workers</div>
-                      <div className="w-1/6 text-right font-medium">{project.daily}/day</div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button asChild variant="ghost" className="w-full">
-                  <Link href="/dashboard/projects">View all projects</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Today's updates</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    {
-                      icon: Users,
-                      description: "Added 2 new workers to Pune City Mall",
-                      timestamp: "2 hours ago",
-                    },
-                    {
-                      icon: IndianRupee,
-                      description: "Recorded wages for Highway Extension",
-                      timestamp: "4 hours ago",
-                    },
-                    {
-                      icon: Calendar,
-                      description: "Generated PF report for April",
-                      timestamp: "Yesterday",
-                    },
-                  ].map((activity, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="rounded-full bg-primary/10 p-2">
-                        <activity.icon className="h-4 w-4 text-primary" />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-sm font-medium leading-none">{activity.description}</p>
-                        <p className="text-xs text-muted-foreground">{activity.timestamp}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button asChild variant="ghost" className="w-full">
-                  <Link href="/dashboard/activity">View all activity</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </TabsContent>
-        <TabsContent value="analytics" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Analytics</CardTitle>
-              <CardDescription>View detailed analytics of your projects and workforce</CardDescription>
-            </CardHeader>
-            <CardContent className="h-[400px] flex items-center justify-center border-2 border-dashed rounded-lg">
-              <div className="text-center">
-                <BarChart3 className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-4 text-lg font-semibold">Analytics Dashboard</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Detailed analytics will be displayed here</p>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="reports" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Reports</CardTitle>
-              <CardDescription>Generate and view reports</CardDescription>
-            </CardHeader>
-            <CardContent className="h-[400px] flex items-center justify-center border-2 border-dashed rounded-lg">
-              <div className="text-center">
-                <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-4 text-lg font-semibold">Reports Dashboard</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Generate PF, ESI, and payroll reports here</p>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
     </div>
   )
 }
